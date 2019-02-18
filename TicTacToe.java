@@ -196,9 +196,9 @@ public class TicTacToe
         if (board[i][j] == ' ')
         {
           board[i][j] = computer;
-          if (minimax(0, false) > bestMove)
+          if (minimax(0, false, Integer.MIN_VALUE, Integer.MAX_VALUE) > bestMove)
           {
-            bestMove = minimax(0, false);
+            bestMove = minimax(0, false, Integer.MIN_VALUE, Integer.MAX_VALUE);
             moveRow = i;
             moveCol = j;
           }
@@ -209,7 +209,7 @@ public class TicTacToe
     board[moveRow][moveCol] = computer;
   }
   
-  public int minimax(int depth, boolean maximizingPlayer)
+  public int minimax(int depth, boolean maximizingPlayer, int alpha, int beta)
   {
     if (checkWin()>0){return -10;}
     
@@ -228,8 +228,11 @@ public class TicTacToe
           if (board[i][j] == ' ')
           {
             board[i][j] = computer;
-            bestValue = Math.max(minimax(depth+1, false)-depth, bestValue);
+            bestValue = Math.max(minimax(depth+1, false, alpha, beta)-depth, bestValue);
+            alpha = Math.max(alpha, bestValue);
             board[i][j] = ' ';
+            if (beta <=alpha)
+              break;
           }
         }
       }
@@ -246,8 +249,11 @@ public class TicTacToe
           if(board[i][j] == ' ')
           {
             board[i][j] = player;
-            bestValue = Math.min(minimax(depth+1, true)+depth, bestValue);
+            bestValue = Math.min(minimax(depth+1, true, alpha, beta)+depth, bestValue);
+            beta = Math.min(beta, bestValue);
             board[i][j] = ' ';
+            if (beta <= alpha)
+              break;
           }
         }
       }
@@ -255,8 +261,3 @@ public class TicTacToe
     }
   }
 }
-
-  
-    
-
-  

@@ -18,31 +18,6 @@ public class TicTacToe
     makeBoard();
   }
   
-  public TicTacToe(char player, char[][] board)
-  {
-    this.board = board;
-    this.player = player;
-    if (player == 'O')
-      computer = 'X';
-    else
-      computer = 'O';
-  } 
-  
-  public char[][] theBoard()
-  {
-    return board;
-  }
-  
-  public char theChar()
-  {
-    return player;
-  }
-  
-  public void adminAlter(int a, int b, char c)
-  {
-    board[a][b] = c;
-  }
-  
   //makes board and sets player and computer
   public void makeBoard()
   {
